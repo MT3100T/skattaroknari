@@ -244,15 +244,10 @@ function update() {
   const foTax = round(taxable * foreignRate / 100);
   const withheldDkk = withheld * rate;
   const withheldPercent = taxable > 0 ? withheldDkk / taxable * 100 : 0;
-  const socialPercent = status === 'yes'
-    ? needsRate && (!ytdItemized || selectedRows.every((_, index) => !getSavedSocial(index)))
-      ? norwayRate : gross > 0 ? social / gross * 100 : 0
-    : 0;
-  const creditPercent = taxable > 0
-    ? Math.max(0, withheldPercent - socialPercent)
-    : 0;
+  const norwegianIncomeTaxDkk = Math.max(0, norwegianIncomeTax * rate);
+  const creditPercent = taxable > 0 ? norwegianIncomeTaxDkk / taxable * 100 : 0;
   const restPercent = taxable > 0 ? Math.max(0, foreignRate - creditPercent) : 0;
-  const credit = round(Math.min(foTax, taxable * creditPercent / 100));
+  const credit = round(Math.min(foTax, norwegianIncomeTaxDkk));
   const rest = round(Math.max(0, foTax - credit));
   for (const [id, percent] of Object.entries({withheldPercent, creditPercent, restPercent})) {
     el(id).textContent = invalid || !Number.isFinite(percent) ? '–' : format.format(percent) + ' %';
