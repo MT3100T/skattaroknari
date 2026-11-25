@@ -1,0 +1,40 @@
+name: Publish Skattaroknari
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: site/data
+          key: skattaroknari-data-${{ github.run_id }}
+          restore-keys: skattaroknari-data-
+      - run: |
+          mkdir -p site/data
+          cp -an data/. site/data/
+          node scripts/refresh-data.mjs site/data
+          cp index.html app.js church.js *.png site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        id: deployment

@@ -292,7 +292,7 @@ async function refreshExchangeRate() {
   exchangeStatus = 'Heinti miðalkurs frá ECB…';
   update();
   try {
-    const response = await fetch('/api/exchange-rate?year=' + year, {signal: AbortSignal.timeout(10000)});
+    const response = await fetch('./data/' + year + '/exchange-rate.json', {signal: AbortSignal.timeout(10000)});
     if (!response.ok) throw new Error('Exchange rate unavailable');
     const data = await response.json();
     if (data.year !== year || !Number.isFinite(data.rate) || data.rate <= 0) throw new Error('Invalid exchange rate');
@@ -312,7 +312,7 @@ async function refreshRate() {
   el('rateStatus').textContent = year === '2026' ? 'Norsk folketrygd · 7,60 % (váttaður 2026-satsur)' : 'Heinti norskan sats…';
   update();
   try {
-    const response = await fetch('/api/trygdeavgift?year=' + year, {signal: AbortSignal.timeout(7000)});
+    const response = await fetch('./data/' + year + '/trygdeavgift.json', {signal: AbortSignal.timeout(7000)});
     if (!response.ok) throw new Error('Rate unavailable');
     const result = await response.json();
     if (year !== el('year').value || result.year !== year) return;
@@ -339,7 +339,7 @@ async function refreshTaks() {
   el('taksStatus').textContent = 'Heinti satsir hjá TAKS…';
   update();
   try {
-    const response = await fetch('/api/taks-rates?year=' + year, {signal: AbortSignal.timeout(15000)});
+    const response = await fetch('./data/' + year + '/taks-rates.json', {signal: AbortSignal.timeout(15000)});
     if (!response.ok) throw new Error('TAKS unavailable');
     const data = await response.json();
     if (request !== taksRequest || data.year !== year) return;
