@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fo">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#12343d">
+<title>Skattaroknari</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf3f1;color:#17353e;font:16px/1.5 system-ui,sans-serif}header{background:#12343d;color:#fff;padding:2.8rem 1rem 4.6rem}header div,main{max-width:1060px;margin:auto}h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1;margin:.4em 0;letter-spacing:-.065em}header p{margin:0;color:#cce0dd}.year{color:#abe084;font-weight:750}main{padding:0 1rem 2rem}.metrics,.grid{display:grid;gap:1rem}.metrics{grid-template-columns:repeat(3,1fr);margin-top:-2.7rem;margin-bottom:1.2rem}.metric{background:#dff0d2;padding:1rem;border-radius:15px;border:1px solid #c6dec0}.metric strong{display:block;font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:-.045em}.grid{grid-template-columns:1fr 1fr;align-items:start}.panel{background:#fff;border:1px solid #d9e5e1;border-radius:16px;overflow:hidden;margin-bottom:1rem}.panel h2{font-size:1.12rem;margin:0;padding:.7rem 1rem;background:#cde6f6}.panel.no h2{background:#dcedce}.inner{padding:1rem}.fields{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}label{font-size:.9rem;font-weight:650;display:block}input,select{width:100%;font:inherit;border:1px solid #a9c0bb;border-radius:7px;background:#fffaf0;color:#17353e;padding:.5em;margin-top:.25rem}input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #28739d;outline-offset:2px}dl{margin:0}dl div{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid #e5eeea}dd{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}dt{font-size:.95rem}.total{font-weight:750;color:#a03228}small{color:#43616a}details{margin-top:.8rem}summary{font-weight:700;cursor:pointer}a{color:#135a80}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left;font-variant-numeric:tabular-nums}td,th{padding:.45rem;border-bottom:1px solid #e5eeea;white-space:nowrap}th{font-size:.86rem}td input{width:8rem;margin:0}.error{color:#a03228;font-weight:700;margin:.5rem 0}footer{font-size:.9rem} @media(max-width:670px){.grid,.metrics{grid-template-columns:1fr}.metrics{gap:.4rem}.metric{padding:.65rem .8rem}.metric strong{display:inline;margin-right:.5rem}.fields{gap:.65rem}header{padding-top:1.8rem}}
+[hidden]{display:none!important}.fee-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:.8rem}.fee{border:1px solid #d9e5e1;border-radius:10px;padding:.75rem}.fee output{display:block;margin-top:.35rem;font-variant-numeric:tabular-nums}.fee-grid+ p,.inner>p:first-child{margin:.4rem 0 .85rem}
+.panel h2.country-heading{display:flex;align-items:center;gap:.65rem;min-height:3.8rem}.country-heading img{width:2.8rem;height:2.8rem;flex:none;object-fit:contain}.country-heading img.country-flag{width:1.65rem;height:auto;border:1px solid #17353e35;border-radius:2px;margin-left:-.25rem}
+.site-intro{overflow:clip;background:linear-gradient(110deg,#123c35 0%,#123b42 56%,#15465b 100%)}
+.intro-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(12rem,24rem);align-items:center;gap:1.5rem}
+.intro-route{display:grid;grid-template-columns:auto minmax(2.5rem,1fr) auto;align-items:center;gap:.55rem;margin:0;color:#cae5de}
+.intro-route img{display:block;width:clamp(3.6rem,8vw,6.8rem);height:auto;filter:brightness(0) invert(87%) sepia(13%) saturate(455%) hue-rotate(99deg)}
+.intro-route img:last-child{transform:scale(.83)}
+.intro-route .route-line{position:relative;border-top:1px dashed #a8d8c5;opacity:.8}
+.intro-route .route-line::before,.intro-route .route-line::after{content:"";position:absolute;top:-3px;width:5px;height:5px;border-radius:50%;background:#b9e3d4}
+.intro-route .route-line::before{left:0}.intro-route .route-line::after{right:0}
+@media(max-width:610px){.intro-layout{grid-template-columns:1fr;gap:.7rem}.intro-route{width:min(100%,15rem)}.intro-route img{width:3.35rem}}
+.route-money{position:absolute;top:0;left:0;display:grid;place-items:center;width:1.55rem;height:.9rem;border:1px solid #b4e6b8;border-radius:.17rem;background:linear-gradient(90deg,#a8d9ae 0 38%,#f1e2b6 38% 65%,#a8d9ae 65%);box-shadow:0 2px #4a8a64,0 3px #b4e6b8;color:#214c3b;font:750 .62rem/1 system-ui;opacity:0;transform:translate(-50%,-65%);animation:route-transfer 12s .35s ease-in-out infinite both;pointer-events:none}
+@keyframes route-transfer{0%{left:0;opacity:0}3%{opacity:1}26%{opacity:1}32%,100%{left:100%;opacity:0}}
+@media(prefers-reduced-motion:reduce){.route-money{display:none;animation:none}}
+.metric-primary{background:#b5df94;border-color:#91bd75;color:#163b30}
+.metric-primary strong{font-size:clamp(1.85rem,4.5vw,2.65rem);font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums}
+.metric-primary span{font-weight:650}
+</style>
+<header class="site-intro"><div class="intro-layout">
+<div><span class="year">SKATTAÁRIÐ <span id="headingYear">2026</span></span>
+<h1>Skattaroknari</h1><p>Løn, skattur og uppsparing hjá sjófólki, sum búgva í Føroyum og arbeiða umborð á norskum offshore-skipum.</p></div>
+<figure class="intro-route">
+<img src="/noreg.png" width="128" height="128" alt="">
+<span class="route-line" aria-hidden="true"><i class="route-money">kr</i></span>
+<img src="/foroyar.png" width="128" height="128" alt="">
+</figure>
+</div></header>
+<main>
+<section class="metrics" aria-label="Úrslit" aria-live="polite">
+<div class="metric metric-primary"><strong id="monthly">–</strong> <span id="monthlyLabel">DKK at seta av pr. mánað</span></div>
+<div class="metric"><strong id="annual">–</strong> <span id="reserveLabel">DKK at seta av um árið</span></div>
+<div class="metric"><strong id="net">–</strong> <span id="netLabel">DKK eftir skatt og gjøld um árið</span></div>
+</section>
+<div class="grid">
+<section class="panel no"><h2 class="country-heading"><img src="/noreg.png" width="45" height="45" alt=""><img class="country-flag" src="/noreg-flag.png" width="22" height="16" alt="">Grundarlag · Noreg</h2><div class="inner">
+<div class="fields">
+<label>Tíðarskeið<select id="period"><option value="year">Heilt ár</option><option value="ytd">Árið higartil</option></select></label>
+<label id="monthRow" hidden><span id="monthLabel">Mánaður</span><select id="month"></select></label>
+</div>
+<div id="ytdOptions" hidden>
+<label>Inntøka frá januar<select id="ytdSource"><option value="totals">Samlað av lønarseðlinum</option><option value="itemized">Mánað fyri mánað</option></select></label>
+</div>
+<div id="ytdTotals" hidden>
+<p><small>Skriva samlaða bruttoløn og samlað norskt skattatrekk frá januar til og við valda mánaðin. Brúka samlaðu tølini á lønarseðlinum fyri valda mánaðin.</small></p>
+<div class="fields">
+<label>Samlað bruttoløn · NOK<input id="ytdGross" type="number" min="0" step=".01"></label>
+<label>Samlað skattatrekk · NOK<input id="ytdTax" type="number" min="0" step=".01"></label>
+</div></div>
+<div id="ytdInputs" hidden>
+<p><small>Skriva tølini frá januar til valda mánaðin. Skriva 0 fyri mánaðir uttan løn. § 25 b-frádrátturin er valda ársupphæddin býtt við 12 og faldað við talinum á mánaðum. Føst gjøld verða roknað fyri sama tíðarskeið.</small></p>
+<div class="scroll"><table><thead><tr><th>Mánaður</th><th>Bruttoløn · NOK</th><th>Skattatrekk · NOK</th></tr></thead><tbody id="ytdRows"></tbody></table></div>
+</div>
+<div class="fields" id="annualInputs">
+<label>Bruttoløn um árið · NOK<input id="gross" type="number" min="0" step="0.01"></label>
+<label>Norskt skattatrekk um árið · NOK<input id="tax" type="number" min="0" step="0.01"></label>
+</div><div class="fields">
+<label>Skattaár<select id="year"><option>2026</option><option>2027</option></select></label>
+<label>Bústaðarkommuna<select id="municipality"><option value="">Vel kommunu</option></select></label>
+<label id="villageRow" hidden>Bygd ella býur<select id="village"></select></label>
+</div>
+<label>§ 25 b uttanlandsfrádráttur<select id="deductionChoice" aria-describedby="deductionHint deductionLimit">
+<option value="transition">Skiftisskipan</option><option value="standard">Vanligt loft</option><option value="96000">96.000 DKK</option><option value="72000">72.000 DKK</option><option value="48000">48.000 DKK</option><option value="custom">Skriva egið beløp</option>
+</select></label>
+<label id="customCapRow" hidden>Egið § 25 b ársloft · DKK/ár<input id="cap" type="number" min="0" step=".01" value="48000"></label>
+<p><strong id="deductionLimit" aria-live="polite"></strong></p>
+<div id="deductionHint">
+<small><strong>Skiftisskipan:</strong> Vel hesa, um tú í 2024 hevði útlendska inntøku eftir § 25 b, sum var frítikin fyri føroyskan skatt eftir regluni um <em>exemption linking</em>.</small><br>
+<small><strong>Vanligt loft:</strong> Vel hetta, um tú hevur rætt til § 25 b-frádrátt og skiftisskipanin ikki er galdandi fyri teg.</small><br>
+<small>Vel eitt fast beløp ella skriva títt egna, um tú kennir títt ársloft. Ert tú í iva um 2024, kanst tú spyrja TAKS. <a href="https://www.taks.fo/fo/borgari/fradrattur/uttanlandsfradrattur">Les um treytirnar hjá TAKS</a>.</small>
+</div>
+<p><small id="taksStatus" aria-live="polite"></small></p>
+<p id="churchRateRow" hidden><strong id="churchRate" aria-live="polite"></strong></p>
+<p><small id="fxStatus" aria-live="polite"></small></p>
+<p><small id="rateStatus" aria-live="polite"></small></p>
+<p id="error" class="error" role="alert" hidden></p>
+<details><summary>Kursur, frádráttur og norsk trygd</summary><div class="fields">
+<label>Egin kursur · DKK fyri 1 NOK (valfrítt)<input id="manualRate" type="number" min="0.000001" step="any" placeholder="Miðalkursur frá ECB"></label>
+<label>Norsk trygdarstøða<select id="included"><option value="yes">Í norska skattatrekkinum</option><option value="no">Goldin afturat skattatrekkinum</option><option value="exempt">Frítikin fyri norska trygd</option></select></label>
+<label id="annualSocialRow">Verulig folketrygd · NOK (valfrítt)<input id="actualSocial" type="number" min="0" step=".01" placeholder="Sjálvvirkandi meting"></label>
+<label id="ytdSocialRow" hidden>Samlað folketrygd · NOK (valfrítt)<input id="ytdSocial" type="number" min="0" step=".01" placeholder="Sjálvvirkandi meting"></label>
+</div></details></div></section>
+<section class="panel"><h2 class="country-heading"><img src="/foroyar.png" width="45" height="45" alt=""><img class="country-flag" src="/foroyar-flag.png" width="22" height="16" alt="">Umroknað · Føroyar</h2><div class="inner"><dl>
+<div><dt>Bruttoløn</dt><dd id="foGross">–</dd></div>
+<div><dt>Norskt skattatrekk</dt><dd id="withheldDkk">–</dd></div>
+<div><dt>Netto úr Noregi</dt><dd id="noNet">–</dd></div>
+<div><dt>Frádráttur eftir § 25 b</dt><dd id="deduction">–</dd></div>
+<div><dt>Skattskyldug løn</dt><dd id="taxable">–</dd></div>
+<div><dt>Føroyskur skattur áðrenn kreditt</dt><dd id="foTax">–</dd></div>
+<div><dt>Norsk folketrygd</dt><dd id="socialPaid">–</dd></div>
+<div><dt>Skattatrekk í % av skattskyldugari løn</dt><dd id="withheldPercent">–</dd></div>
+<div><dt>Prosent eftir folketrygd</dt><dd id="creditPercent">–</dd></div>
+<div><dt id="foreignRateLabel">Munur upp til føroyskan skattasats</dt><dd id="restPercent">–</dd></div>
+<div><dt>Mettur frádráttur fyri norskan skatt</dt><dd id="credit">–</dd></div>
+<div class="total"><dt>Restskattur</dt><dd id="rest">–</dd></div>
+<div><dt>Almenn gjøld</dt><dd id="allFees">–</dd></div>
+</dl></div></section></div>
+<section class="panel"><h2>Almenn gjøld og kirkjuskattur</h2><div class="inner">
+<p><small>Vel Ja fyri gjøld, tú rindar. Upphæddirnar eru metingar fyri hetta inntøkuslagið.</small></p>
+<div class="fee-grid" id="feeFields"></div>
+<p><small id="feeNote" aria-live="polite"></small></p>
+</div></section>
+<section class="panel" id="calendar"><h2>Kalendari · Uppsparing í DKK</h2><div class="inner">
+<small>Skriva tað, tú hevur sett av. Eftir at seta av verður roknað til og við hvønn mánað.</small>
+<div class="scroll" tabindex="0" aria-label="Mánaðarlig uppsparing"><table><thead><tr><th>Mánaður</th><th>Ætlað at seta av</th><th>Sett av</th><th>Eftir at seta av</th></tr></thead><tbody id="months"></tbody></table></div></div></section>
+<footer><p><strong>Vegleiðing frá einum sjómanni til annan.</strong> Skattaroknari er gjørdur fyri at hjálpa sjófólki at meta um skattin. TAKS ger endaligu skattauppgerðina. Eigarin tekur ikki ábyrgd av útrokningunum ella av avgerðum, sum tú tekur við støði í teimum.</p>
+<p>Hetta er ein meting fyri eitt inntøkuslag við kreditt-linking. Skipaslag, flagg og arbeiðsøki kunnu broyta skattareglurnar. TAKS ásetur gjaldfreistir. Tølini verða goymd í hesum kaganum eftir skattaári, um kagin loyvir tí. Í metingini frá skattatrekki verður norski trygdarsatsurin drigin frá í prosentstigum av skattskyldugu lønini. Fá roknimátan váttaðan hjá TAKS fyri tíni viðurskifti.</p>
+<p><a href="https://www.taks.fo/fo/borgari/bolkar/utisiglarar">TAKS · Útisiglarar</a> · <a href="https://www.taks.fo/fo/borgari/fradrattur/uttanlandsfradrattur">TAKS · Uttanlandsfrádráttur</a> · <a href="https://www.taks.fo/fo/borgari/skattur/kringvarpsgjald">TAKS · Kringvarpsgjald</a> · <a href="https://www.taks.fo/fo/borgari/gjoeld-og-agodar/talva-yvir-kommunuskatt-kirkjuskatt-og-barnafradratt">TAKS · Kirkjuskattur</a> · <a href="https://www.taks.fo/en/individuals/tax/taxation-in-the-faroe-islands">TAKS · Almenn gjøld</a> · <a href="https://www.taks.fo/fo/borgari/skattur/broytingar-i-uttanlandsskatti">TAKS · Folketrygd</a> · <a href="https://www.skatteetaten.no/satser/trygdeavgift/">Skatteetaten · Trygdeavgift</a></p><p><a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html">ECB · Miðalkursur</a></p>
+<p><strong>© MT3100T · Eigari av Skattaroknaranum</strong></p>
+</footer>
+</main>
+<script src="church.js" defer></script>
+<script src="app.js" defer></script>
+</html>
